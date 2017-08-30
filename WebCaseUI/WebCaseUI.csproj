@@ -161,7 +161,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Case.cs" />
-    <Compile Include="Models\ListCases.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -203,6 +202,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Update.cshtml" />
     <Content Include="Views\Home\All.cshtml" />
+    <Content Include="Views\Home\GetCaseById.cshtml" />
+    <Content Include="Views\Home\ShowCase.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
