@@ -1,5 +1,29 @@
-﻿@{
+﻿
+
+@{
     ViewBag.Title = "List of all cases";
 }
 <h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>caseNumber</th>
+            <th>kind</th>
+            <th>customerNumber</th>
+            <th>attachment</th>
+        </tr>
+    </thead>
+    @foreach (var cases in ViewBag.Cases)
+    {
+        <tr>
+            <td>@cases.ID</td>
+            <td>@cases.caseNumber</td>
+            <td>@cases.kind</td>
+            <td>@cases.customerNumber</td>
+            <td>@cases.attachment</td>
+        </tr>
+    }
+</table>
 
