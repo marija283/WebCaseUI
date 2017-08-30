@@ -39,6 +39,13 @@ namespace WebCaseUI.Controllers
 
             return View();
         }
+
+        public ActionResult All()
+        {
+            ViewBag.Message = "Your page for all cases.";
+
+            return View();
+        }
         public ActionResult Update()
         {
             ViewBag.Message = "Your update page.";
