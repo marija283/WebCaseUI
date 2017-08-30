@@ -49,6 +49,22 @@ namespace WebCaseUI.Controllers
 
             return View();
         }
+           public ActionResult GetCaseById()
+        {
+            ViewBag.Message = "Your GetCaseById page.";
+
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> GetCaseById(int id)
+        {
+
+           
+            var myCase = await GetCaseAsync(id);
+            ViewBag.Message = myCase;
+
+            return View();
+        }
 
         [HttpPost]
         public async Task<ActionResult> Update(int id, HttpPostedFileBase file)
@@ -77,13 +93,13 @@ namespace WebCaseUI.Controllers
             }
         }
 
-        static async Task<Case> GetCaseAsync()
+        static async Task<Case> GetCaseAsync(int id)
         {
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:8787/");
                 Case product = null;
-                HttpResponseMessage response = await client.GetAsync("api/cases");
+                HttpResponseMessage response = await client.GetAsync("api/cases/"+id);
                 if (response.IsSuccessStatusCode)
                 {
                     product = await response.Content.ReadAsAsync<Case>();
