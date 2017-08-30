@@ -36,6 +36,14 @@ namespace WebCaseUI.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<ActionResult> Case(Case myCase)
+        {
+            ViewBag.Message = "Your case page.";
+            ViewBag.myCase = await createCaseAsync(myCase);
+            return View("~/Views/Home/ShowCase.cshtml");
+        }
+
         public async Task<ActionResult> All()
         {
             var allCase = await GetAllCaseAsync();
@@ -69,7 +77,6 @@ namespace WebCaseUI.Controllers
         [HttpPost]
         public async Task<ActionResult> Update(int id, HttpPostedFileBase file)
         {
-            ViewBag.Message = "Your update post page.";
             await UpdateProductAsync(id, file);
             return View();
         }
@@ -108,7 +115,20 @@ namespace WebCaseUI.Controllers
             }
         }
 
+        static async Task<Case> createCaseAsync(Case myCase)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:8787/");
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/cases", myCase);
+                response.EnsureSuccessStatusCode();
 
+            }
+
+            // Deserialize the updated product from the response body.
+             //  Case myCase = await response.Content.ReadAsAsync<Case>();
+            return myCase;
+        }
 
         static async Task<Case> UpdateProductAsync(int myCaseId, HttpPostedFileBase file)
         {
