@@ -20,13 +20,23 @@
     </div>
 <div class="form-group">
     <label for="attachment">Attachment:</label>
-    <label for="attachmentValue">@ViewBag.myCase.attachment</label>
-</div>
+@if (ViewBag.myCase.attachment != null)
+{
+    <label for="attachmentValue"> @ViewBag.myCase.attachment </label>
 }
 else
 {
+    <label for="attachmentValue"> no attachment file </label>
+
+}
+</div>
+}
+    else
+    {
     <label for="noSuchCase">There is no such case</label>
 
 
 
 }
+
+<input type="button" class="btn btn-info" value="Get another case" onclick="location.href='@Url.Action("GetCaseById", "Home")'" />
