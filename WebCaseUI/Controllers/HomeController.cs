@@ -61,9 +61,9 @@ namespace WebCaseUI.Controllers
 
            
             var myCase = await GetCaseAsync(id);
-            ViewBag.Message = myCase;
+            ViewBag.myCase = myCase;
 
-            return View();
+            return View("~/Views/Home/ShowCase.cshtml");
         }
 
         [HttpPost]

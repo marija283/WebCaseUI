@@ -2,22 +2,31 @@
     ViewBag.Title = "Show Case";
 }
 <h2>@ViewBag.Title</h2>
-
+@if (ViewBag.myCase != null)
+{
     <div class="form-group">
         <label for="caseNumber">Case number:</label>
-        <label for="caseNumberValue"></label>
+        <label for="caseNumberValue">@ViewBag.myCase.caseNumber</label>
     </div>
     <div class="form-group">
         <label for="kind">Kind:</label>
-        <label for="kindValue"></label>
+        <label for="kindValue">@ViewBag.myCase.kind</label>
 
     </div>
     <div class="form-group">
         <label for="customerNumber">Customer number:</label>
-        <label for="customerNumberValue"></label>
+        <label for="customerNumberValue">@ViewBag.myCase.customerNumber</label>
 
     </div>
 <div class="form-group">
     <label for="attachment">Attachment:</label>
-    <label for="attachmentValue">Attachment:</label>
+    <label for="attachmentValue">@ViewBag.myCase.attachment</label>
 </div>
+}
+else
+{
+    <label for="noSuchCase">There is no such case</label>
+
+
+
+}
