@@ -47,10 +47,10 @@ namespace WebCaseUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Update(int id, HttpPostedFileBase uploadFile)
+        public async Task<ActionResult> Update(int id, HttpPostedFileBase file)
         {
             ViewBag.Message = "Your update post page.";
-
+            await UpdateProductAsync(id, file);
             return View();
         }
 
@@ -58,14 +58,32 @@ namespace WebCaseUI.Controllers
 
 
 
-        static async Task<Case> UpdateProductAsync(Case myCase, HttpPostedFileBase uploadFile)
+        static async Task<Case> GetCaseAsync(string path)
         {
-            client.DefaultRequestHeaders.Accept.Clear();
-            HttpResponseMessage response = await client.PutAsJsonAsync($"api/cases/{myCase.ID}", uploadFile);
-            response.EnsureSuccessStatusCode();
+            Case product = null;
+            HttpResponseMessage response = await client.GetAsync("/api/cases");
+            if (response.IsSuccessStatusCode)
+            {
+                product = await response.Content.ReadAsAsync<Case>();
+            }
+            return product;
+        }
+
+
+
+        static async Task<Case> UpdateProductAsync(int myCaseId, HttpPostedFileBase file)
+        {
+            HttpResponseMessage response = null;
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                //response = await client.PostAsync($"api/cases/{myCaseId}", file);
+                response.EnsureSuccessStatusCode();
+
+            }
 
             // Deserialize the updated product from the response body.
-            myCase = await response.Content.ReadAsAsync<Case>();
+            Case myCase = await response.Content.ReadAsAsync<Case>();
             return myCase;
         }
     }
