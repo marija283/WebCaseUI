@@ -38,8 +38,8 @@ namespace WebCaseUI.Controllers
 
         public async Task<ActionResult> All()
         {
-            var myCase = await GetAllCaseAsync();
-            ViewBag.Message = myCase;
+            var allCase = await GetAllCaseAsync();
+            ViewBag.Cases = allCase;
 
             return View();
         }
