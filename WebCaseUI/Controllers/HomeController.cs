@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -14,12 +15,7 @@ namespace WebCaseUI.Controllers
     {
 
         static HttpClient client = new HttpClient();
-        public HomeController()
-        {
-            client.BaseAddress = new Uri("http://localhost:8787/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        }
+
 
         public ActionResult Index()
         {
@@ -40,9 +36,10 @@ namespace WebCaseUI.Controllers
             return View();
         }
 
-        public ActionResult All()
+        public async Task<ActionResult> All()
         {
-            ViewBag.Message = "Your page for all cases.";
+            var myCase = await GetAllCaseAsync();
+            ViewBag.Message = myCase;
 
             return View();
         }
@@ -63,17 +60,36 @@ namespace WebCaseUI.Controllers
 
 
 
-
-
-        static async Task<Case> GetCaseAsync(string path)
+        static async Task<List<Case>> GetAllCaseAsync()
         {
-            Case product = null;
-            HttpResponseMessage response = await client.GetAsync("/api/cases");
-            if (response.IsSuccessStatusCode)
+            using (var client = new HttpClient())
             {
-                product = await response.Content.ReadAsAsync<Case>();
+                client.BaseAddress = new Uri("http://localhost:8787/");
+                List<Case> product = null;
+                HttpResponseMessage response = await client.GetAsync("api/cases");
+                if (response.IsSuccessStatusCode)
+                {
+                    //product = await response.Content.ReadAsAsync<ListCases>();
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    product = JsonConvert.DeserializeObject<List<Case>>(jsonString);
+                }
+                return product;
             }
-            return product;
+        }
+
+        static async Task<Case> GetCaseAsync()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:8787/");
+                Case product = null;
+                HttpResponseMessage response = await client.GetAsync("api/cases");
+                if (response.IsSuccessStatusCode)
+                {
+                    product = await response.Content.ReadAsAsync<Case>();
+                }
+                return product;
+            }
         }
 
 
