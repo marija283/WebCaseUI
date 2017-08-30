@@ -20,9 +20,9 @@ namespace WebCaseUI.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Case()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Your case page.";
 
             return View();
         }
