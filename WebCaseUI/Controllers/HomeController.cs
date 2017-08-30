@@ -40,8 +40,8 @@ namespace WebCaseUI.Controllers
         public async Task<ActionResult> Case(Case myCase)
         {
             ViewBag.Message = "Your case page.";
-            var myCaseReponse = await createCaseAsync(myCase);
-            return View();
+            ViewBag.myCase = await createCaseAsync(myCase);
+            return View("~/Views/Home/ShowCase.cshtml");
         }
 
         public async Task<ActionResult> All()
@@ -77,7 +77,6 @@ namespace WebCaseUI.Controllers
         [HttpPost]
         public async Task<ActionResult> Update(int id, HttpPostedFileBase file)
         {
-            ViewBag.Message = "Your update post page.";
             await UpdateProductAsync(id, file);
             return View();
         }
