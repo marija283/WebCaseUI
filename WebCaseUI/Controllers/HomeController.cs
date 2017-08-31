@@ -51,10 +51,11 @@ namespace WebCaseUI.Controllers
 
             return View();
         }
-        public ActionResult Update()
+        public async Task<ActionResult> Update()
         {
             ViewBag.Message = "Your update page.";
-
+            var allCase = await GetAllCaseAsync();
+            ViewBag.Cases = allCase;
             return View();
         }
 
