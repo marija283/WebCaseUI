@@ -64,6 +64,8 @@ namespace WebCaseUI.Controllers
         {
             await UpdateProductAsync(id, file);
             ViewBag.Message = "Attachment apploaded successfully";
+            var allCase = await GetAllCaseAsync();
+            ViewBag.Cases = allCase;
             return View();
         }
 
