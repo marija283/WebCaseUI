@@ -142,10 +142,14 @@ namespace WebCaseUI.Controllers
             {
                 //client.DefaultRequestHeaders.Accept.Clear();
                 client.BaseAddress = new Uri("http://localhost:8787/");
+
                 var requestContent = new MultipartFormDataContent();
+                var fileContent = new StreamContent(file.InputStream);
+              //  fileContent.Headers.ContentType = file.ContentType;
+                requestContent.Add(fileContent, file.FileName, file.FileName);
 
+                response = await client.PostAsync($"api/cases/{myCaseId}", requestContent);
 
-                response = await client.PostAsJsonAsync($"api/cases/{myCaseId}", file);
                 response.EnsureSuccessStatusCode();
 
             }
