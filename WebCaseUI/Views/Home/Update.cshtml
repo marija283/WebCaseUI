@@ -1,4 +1,6 @@
-﻿@{
+﻿@model WebCaseUI.Models.Case
+
+@{
     ViewBag.Title = "Update exiting Case";
 }
 <h2>@ViewBag.Title</h2>
@@ -7,9 +9,9 @@
 {
 
     <div class="form-group">
-        <label for="id">Case id:</label>
-        <input type="text" class="form-control" id="id" name="id" required="required">
-    </div>
+        <label for="id">Case name:</label>
+       @* <input type="text" class="form-control" id="id" name="id" required="required">*@
+@Html.DropDownListFor(x => x.ID, new SelectList(ViewBag.Cases, "ID", "caseNumber"))    </div>
    
     <div class="form-group">
         <label for="attachment">Attachment:</label>
