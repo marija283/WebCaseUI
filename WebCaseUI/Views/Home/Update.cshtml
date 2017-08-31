@@ -3,7 +3,7 @@
 }
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("Update", "Home", FormMethod.Post))
+@using (Html.BeginForm("Update", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 
     <div class="form-group">

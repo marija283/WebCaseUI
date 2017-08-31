@@ -57,7 +57,16 @@ namespace WebCaseUI.Controllers
 
             return View();
         }
-           public ActionResult GetCaseById()
+
+        [HttpPost]
+        public async Task<ActionResult> Update(int id, HttpPostedFileBase file)
+        {
+            await UpdateProductAsync(id, file);
+            return View();
+        }
+
+
+        public ActionResult GetCaseById()
         {
             ViewBag.Message = "Your GetCaseById page.";
 
@@ -74,12 +83,7 @@ namespace WebCaseUI.Controllers
             return View("~/Views/Home/ShowCase.cshtml");
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Update(int id, HttpPostedFileBase file)
-        {
-            await UpdateProductAsync(id, file);
-            return View();
-        }
+       
 
 
 
@@ -135,8 +139,12 @@ namespace WebCaseUI.Controllers
             HttpResponseMessage response = null;
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Accept.Clear();
-                //response = await client.PostAsync($"api/cases/{myCaseId}", file);
+                //client.DefaultRequestHeaders.Accept.Clear();
+                client.BaseAddress = new Uri("http://localhost:8787/");
+                var requestContent = new MultipartFormDataContent();
+
+
+                response = await client.PostAsJsonAsync($"api/cases/{myCaseId}", file);
                 response.EnsureSuccessStatusCode();
 
             }
