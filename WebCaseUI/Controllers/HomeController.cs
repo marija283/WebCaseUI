@@ -63,6 +63,7 @@ namespace WebCaseUI.Controllers
         public async Task<ActionResult> Update(int id, HttpPostedFileBase file)
         {
             await UpdateProductAsync(id, file);
+            ViewBag.Message = "Attachment apploaded successfully";
             return View();
         }
 
@@ -151,7 +152,7 @@ namespace WebCaseUI.Controllers
                 response = await client.PostAsync($"api/cases/{myCaseId}", requestContent);
 
                 response.EnsureSuccessStatusCode();
-
+                
             }
 
             // Deserialize the updated product from the response body.
